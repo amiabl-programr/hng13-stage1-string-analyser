@@ -9,7 +9,7 @@ export function getString(id) {
 }
 
 export function getAllStrings() {
-  return db;
+  return Object.values(db);
 }
 
 export function deleteString(id) {

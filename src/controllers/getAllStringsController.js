@@ -95,7 +95,8 @@ function getAllStringsController(req, res) {
 
       return true;
     });
-
+console.log("Filters applied:", filters);
+console.log("Filtered data count:", data);
     return res.status(200).json({
       data,
       count: data.length,
