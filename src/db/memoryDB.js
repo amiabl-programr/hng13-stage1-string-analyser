@@ -11,3 +11,7 @@ export function getString(id) {
 export function getAllStrings() {
   return db;
 }
+
+export function deleteString(id) {
+  delete db[id];
+}
