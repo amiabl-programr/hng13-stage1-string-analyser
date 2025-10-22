@@ -1,21 +1,19 @@
 import crypto from "crypto";
 import { getString } from "../db/memoryDB.js";
+import { normalizeString } from "../utils/normalise.js";
 
 function getSpecificStringController(req, res) {
-  const { string_value } = req.params;
+  const { id } = req.params;
 
-  if (!string_value) {
+  if (typeof id !== "string" || id.trim() === "") {
     return res.status(400).json({
       status: "error",
       message: "No string value provided in the request URL.",
     });
   }
 
-  // Create the same hash used when storing
-  const sha256_hash_value = crypto
-    .createHash("sha256")
-    .update(string_value)
-    .digest("hex");
+  const normalized = normalizeString(id);
+  const sha256_hash_value = crypto.createHash("sha256").update(normalized).digest("hex");
 
   const data = getString(sha256_hash_value);
 
@@ -26,9 +24,7 @@ function getSpecificStringController(req, res) {
     });
   }
 
-  // Found
   return res.status(200).json(data);
 }
-
 
 export default getSpecificStringController;

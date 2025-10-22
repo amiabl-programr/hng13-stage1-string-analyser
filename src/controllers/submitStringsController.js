@@ -1,5 +1,6 @@
 import crypto from "crypto";
-import { addString, getString } from "../db/memoryDB.js"; // import getString too
+import { addString, getString } from "../db/memoryDB.js";
+import { normalizeString } from "../utils/normalise.js";
 
 function submitStringsController(req, res) {
   const { value } = req.body;
@@ -36,7 +37,8 @@ function submitStringsController(req, res) {
   };
 
   // Compute hash to use as ID
-  const sha256_hash_value = getShaHash(value);
+const normalized = normalizeString(value);
+  const sha256_hash_value = crypto.createHash("sha256").update(normalized).digest("hex");
 
   // ✅ Check if the string already exists
   const existing = getString(sha256_hash_value);
