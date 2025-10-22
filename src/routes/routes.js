@@ -11,8 +11,8 @@ const router = express.Router();
 router.post('/strings', submitStringsController);
 router.get('/strings/all', getAllStringsController);
 router.get('/strings/:id', getSpecificStringController);
+router.delete('/strings/:id', deleteStringController);
 // router.get('/strings', getStringsWithNaturalLanguageController);
 // router.get('/strings/filter-by-natural-language', getStringsWithNaturalLanguageController);
-router.delete('/strings/:id', deleteStringController);
 
 export default router;
